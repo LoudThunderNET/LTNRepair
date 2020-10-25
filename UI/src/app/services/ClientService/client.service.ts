@@ -3,13 +3,10 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { Client } from '../../domain/client';
 import { ClientTypeEnum } from '../../domain/enums/client-type-enum.enum';
-import {ReceptionModule} from '../../pages/reception/reception.module';
 import {JuridicalPerson} from '../../domain/order/juridical-person';
 import {PhysicalPerson} from '../../domain/order/physical-person';
 
-@Injectable({
-  providedIn: ReceptionModule
-})
+@Injectable()
 export class ClientService {
   public static clients: Client []=[
     {
@@ -132,33 +129,44 @@ export class ClientService {
    * Обновляет заказачика.
    * @param client Модель заказчика.
    */
-  public updateClient(client: Client): Observable<number>{
-    return new BehaviorSubject<number>(1).asObservable();
+  public updateClient(client: Client): BehaviorSubject<void>{
+    const bs = new BehaviorSubject<void>(null);
+    bs.complete();
+    
+    return bs;
   }
 
   /**
    * Создает нового заказчика.
    * @param client Модель заказчика.
    */
-  public createClient(client: Client): Observable<number>{
-    return new BehaviorSubject<number>(1).asObservable();
+  public createClient(client: Client): BehaviorSubject<number>{
+    const bs = new BehaviorSubject<number>(1);
+    bs.next(1);
+    bs.complete();
+
+    return bs;
   }
 
   private matchAgainstJuridicalPerson(filterString: string, juridicalPerson: JuridicalPerson):boolean{
-    const lowerCasedFilter = filterString.toLowerCase();
-    return juridicalPerson.name.toLowerCase().startsWith(lowerCasedFilter) ||
-          juridicalPerson.inn.toLowerCase().startsWith(lowerCasedFilter) ||
-          juridicalPerson.kpp.toLowerCase().startsWith(lowerCasedFilter) ||
-          juridicalPerson.email.toLowerCase().startsWith(lowerCasedFilter) ||
-          juridicalPerson.phone.toLowerCase().startsWith(lowerCasedFilter);
+    const lowerCasedFilter = this.normalizeFilter(filterString);
+    return juridicalPerson && ( (juridicalPerson.name || '').toLowerCase().startsWith(lowerCasedFilter) ||
+          (juridicalPerson.inn || '').toLowerCase().startsWith(lowerCasedFilter) ||
+          (juridicalPerson.kpp || '').toLowerCase().startsWith(lowerCasedFilter) ||
+          (juridicalPerson.email || '').toLowerCase().startsWith(lowerCasedFilter) ||
+          (juridicalPerson.phone || '').toLowerCase().startsWith(lowerCasedFilter));
   }
 
   private matchAgainstPhysicalPerson(filterString: string, physicalPerson: PhysicalPerson):boolean{
-    const lowerCasedFilter = filterString.toLowerCase();
-    return physicalPerson.firstName.toLowerCase().startsWith(lowerCasedFilter) ||
-          physicalPerson.lastName.toLowerCase().startsWith(lowerCasedFilter) ||
-          physicalPerson.middleName.toLowerCase().startsWith(lowerCasedFilter) ||
-          physicalPerson.email.toLowerCase().startsWith(lowerCasedFilter) ||
-          physicalPerson.phone.toLowerCase().startsWith(lowerCasedFilter);
+    const lowerCasedFilter = this.normalizeFilter(filterString);
+    return physicalPerson && ((physicalPerson.firstName || '').toLowerCase().startsWith(lowerCasedFilter) ||
+          (physicalPerson.lastName || '').toLowerCase().startsWith(lowerCasedFilter) ||
+          (physicalPerson.middleName || '').toLowerCase().startsWith(lowerCasedFilter) ||
+          (physicalPerson.email || '').toLowerCase().startsWith(lowerCasedFilter) ||
+          (physicalPerson.phone || '').toLowerCase().startsWith(lowerCasedFilter));
+  }
+
+  private normalizeFilter(filterString: string):string{
+    return (filterString || '').toLowerCase();
   }
 }

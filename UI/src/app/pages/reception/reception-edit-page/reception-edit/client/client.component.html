@@ -1,0 +1,126 @@
+<div [formGroup]="formGroup" class="card">
+    <div class="p-fluid p-grid">
+        <label for="clientName" class="control-title p-col-12 p-mb-2 p-md-2 p-mb-md-0">Клиент</label>
+        <div class="p-col p-grid p-fluid">
+            <div class="p-col-4 p-grid p-fluid">
+                <div class="p-col p-field-checkbox" *ngFor="let clientType of clientTypes">
+                    <label [for]="clientType.id" [ngStyle]="{'color': formGroupControls.type.enabled && !formGroupControls.type.valid ? 'red': 'black'}">
+                    <input type="radio"  
+                            [id]="clientType.id"
+                            [value]="clientType"
+                            [formControlName]="formControlNames.type"/>
+                        {{clientType.text}}
+                    </label>
+                </div>
+            </div>
+            <div *ngIf="formGroupControls.type.enabled && !formGroupControls.type.valid" class="p-col-4 p-grid p-fluid">
+                <small id="username2-help" class="p-invalid">Username is not available.</small>
+            </div>
+            <div class="p-col p-grid p-fluid">
+                <p-button id="newClient" 
+                            pRipple 
+                            icon="pi" 
+                            label="Новый" 
+                            [disabled]="isEditing"
+                            class="p-field p-mr-1 pml-1"
+                            (click)="onNewClientButtonClick($event)">
+                </p-button>
+                <p-button id="clientEdit" 
+                            pRipple 
+                            icon="pi" 
+                            label="Изменить"
+                            [disabled]="isCreating"
+                            class="p-field p-mr-1 pml-1"
+                            (click)="onEditClientButtonClick($event)">
+                </p-button>
+                <p-button id="save" 
+                            pRipple 
+                            icon="pi pi-check" 
+                            label="Сохранить" 
+                            [disabled]="!isCreating && !isEditing"
+                            class="p-field p-mr-1 pml-1"
+                            (click)="onSaveButtonClick($event)">
+                </p-button>
+                <button id="chooseClientDlgButton" 
+                        pButton 
+                        pRipple 
+                        icon="pi pi-ellipsis-h" 
+                        class="p-field p-mr-1 pml-1" 
+                        (click)="onChooseClientDlgButtonClick($event)">
+                </button>
+            </div>
+        </div>
+    </div>
+    <app-juridical-person  *ngIf="formGroupControls.type.value" 
+                            [style.display]="formGroupControls.type.value.id === Juridical.id ? 'block': 'none'"
+                            [formControlName]="formControlNames.juridical">
+    </app-juridical-person>
+    <app-physical-person   *ngIf="formGroupControls.type.value"
+                             [style.display]="formGroupControls.type.value.id === Phisical.id ? 'block': 'none'"
+                            [formControlName]="formControlNames.physical">
+    </app-physical-person>
+</div>
+<p-dialog   header="Выбор заказчика" 
+            [(visible)]="showChooseClientDlg"
+            [modal]="true"
+            [maximizable]="true"
+            [style]="{width: '100vw'}"
+            contentStyleClass="layout-content content-section"
+            styleClass="p-fluid"
+            (onShow)="dialog.maximize()"
+            (onHide)="onChooseClientDlgHiding($event)" #dialog>
+    <div class="card p-grid">
+        <label for="clientFilter" class="control-title p-col-12 p-xl-1 p-mb-2 p-md-2 p-mb-md-0">Фильтр</label>
+        <div class="p-col">
+            <input id="clientFilter" type="text" pInputText [formControl]="clientFilter"/>
+        </div>
+    </div>
+    <div class="card p-grid">
+        <p-table  [value]="clientService.getClientsByFilter(clientFilter.valueChanges | async) | async"
+            [rowHover]="true"
+            [selectionMode]="'single'"
+            [(selection)]="selectedClient"
+            dataKey="id"
+            styleClass="p-datatable-sm p-datatable-gridlines">
+        
+            <ng-template pTemplate="colgroup">
+                <colgroup>
+                    <col style="width: 15%;">
+                    <col style="width: 55%;">
+                    <col style="width: 15%;">
+                    <col style="width: 15%;">
+                </colgroup>
+            </ng-template>
+        
+            <ng-template pTemplate="header">
+                <tr class="table-header">
+                    <th>Тип</th>
+                    <th>Наименование</th>
+                    <th>Телефон</th>
+                    <th>Электронная почта</th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-client>
+                <tr [pSelectableRow]="client">
+                    <td>{{client.type.text}}</td>
+                    <td>
+                        <ul class="cell-list">
+                            <li *ngIf="client.type.id == Phisical.id">{{client | physicalPreson}}</li> 
+                            <li *ngIf="client.type.id == Juridical.id">{{client.fullname}}({{client.inn}}/{{client.kpp}})</li> 
+                        </ul>
+                    </td>
+                    <td>{{client.phone}}</td>
+                    <td>{{client.email}}</td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </div>
+    <div class="p-fluid p-formgrid p-grid card p-ai-center vertical-container">
+        <div class="p-field button-div">
+            <p-button id="chooseClient" pRipple icon="pi pi-check" label="Выбрать" [disabled]="!selectedClient" (click)="onChooseClientClick($event)" class="p-field p-mr-1 pml-1"></p-button>
+        </div>
+        <div class="p-field button-div">
+            <p-button id="cancel" pRipple icon="pi pi-times" label="Отменить" (click)="onChooseClientDlgHiding($event)" class="p-field p-mr-1 pml-1"></p-button>
+        </div>
+    </div>
+</p-dialog>

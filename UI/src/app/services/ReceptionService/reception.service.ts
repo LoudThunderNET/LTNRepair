@@ -10,7 +10,7 @@ import { Order } from '../../domain/order/order';
 import { JuridicalPerson } from '../../domain/order/juridical-person';
 import { PhysicalPerson } from '../../domain/order/physical-person';
 import { Client } from 'src/app/domain/client';
-import {ClientService} from 'src/app/services/ClientService/client.service';
+import { ClientService } from 'src/app/services/ClientService/client.service';
 
 @Injectable()
 export class ReceptionService {

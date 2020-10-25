@@ -15,6 +15,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { CommunicatorService } from './communication/communicator.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FormControlBuilder } from './common/form-control-builder';
+import { PhysicalPresonPipe } from './core/physical-preson.pipe';
 
 @NgModule({
   declarations: [

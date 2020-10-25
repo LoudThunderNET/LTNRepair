@@ -17,17 +17,19 @@ import { ReceptionService } from "../../services/ReceptionService/reception.serv
 import { ReceptionRegistryPaginatorComponent } from './reception-registry-page/reception-registry-paginator/reception-registry-paginator.component';
 import { ReceptionEditPageComponent } from './reception-edit-page/reception-edit-page.component';
 import { ReceptionEditComponent } from './reception-edit-page/reception-edit/reception-edit.component';
-import { ClientFormComponent } from './reception-edit-page/reception-edit/client-form/client-form.component';
-import { EquipmentFormComponent } from './reception-edit-page/reception-edit/equipment-form/equipment-form.component';
+import { ClientComponent } from './reception-edit-page/reception-edit/client/client.component';
+import { EquipmentComponent } from './reception-edit-page/reception-edit/equipment/equipment.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { EquipmentService } from "../../services/EquipmentService/equipment.service";
 import { TreeTableModule } from 'primeng/treetable';
 import {DialogModule} from 'primeng/dialog';
 import {TreeModule} from 'primeng/tree';
-import { JuridicalPersonComponent } from './reception-edit-page/reception-edit/client-form/juridical-person/juridical-person.component';
-import { PhysicalPersonComponent } from './reception-edit-page/reception-edit/client-form/physical-person/physical-person.component';
+import { JuridicalPersonComponent } from './reception-edit-page/reception-edit/client/juridical-person/juridical-person.component';
+import { PhysicalPersonComponent } from './reception-edit-page/reception-edit/client/physical-person/physical-person.component';
 import { OrderStatusViewComponent } from './reception-edit-page/reception-edit/order-status-view/order-status-view.component';
+import { PhysicalPresonPipe } from 'src/app/core/physical-preson.pipe';
+import { ClientService } from 'src/app/services/ClientService/client.service';
 
 @NgModule({
   declarations: [
@@ -39,12 +41,13 @@ import { OrderStatusViewComponent } from './reception-edit-page/reception-edit/o
     ReceptionRegistryCardComponent, 
     ReceptionRegistryPaginatorComponent, 
     ReceptionEditPageComponent, 
-    EquipmentFormComponent, 
-    ClientFormComponent, 
+    EquipmentComponent, 
+    ClientComponent, 
     ReceptionEditComponent, 
     JuridicalPersonComponent, 
     PhysicalPersonComponent, 
-    OrderStatusViewComponent
+    OrderStatusViewComponent,
+    PhysicalPresonPipe
   ],
   imports: [
     ReactiveFormsModule,
@@ -63,7 +66,8 @@ import { OrderStatusViewComponent } from './reception-edit-page/reception-edit/o
   ],
   providers:[
     ReceptionService,
-    EquipmentService
+    EquipmentService,
+    ClientService
   ]
 })
 export class ReceptionModule { }
