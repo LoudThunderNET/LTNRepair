@@ -1,0 +1,30 @@
+.filter-panel{
+    height: 70px;
+    background-color: #dee2e6;
+    border-radius: 5px;
+    padding: 5px;
+    vertical-align: middle;
+    position: relative;
+}
+.vertical-center{
+    height: 40px;
+    position: absolute;
+    top: 50%;
+    margin: -20px 0 0 0;
+}
+.filter-input {
+    width: calc(100% - 160px);
+    left: 45px;
+    input.p-inputtext.p-component{
+        display: inline-block;
+        width: 100%;
+    }
+}
+.filter-search-button{
+    float: right;
+    right: 5px;
+}
+
+:host ::ng-deep div.p-ripple.p-button.p-togglebutton.p-component.p-button-icon-only{
+    padding: 0.67em 0;
+}

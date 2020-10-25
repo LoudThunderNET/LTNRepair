@@ -1,0 +1,66 @@
+
+.p-tabview.quick-filter {
+    .p-tabview-panels {
+        display: none;
+    }
+    .p-tabview-nav{
+    border: none;
+    }
+    .p-tabview-nav-link.p-ripple{
+        padding: 0.5rem;
+    }
+    .p-tabview-nav li .p-tabview-nav-link{
+        border-bottom-color: transparent;
+    }
+}
+.reception-registry-paginator.p-paginator.p-component{
+    padding: 0rem;
+    right: 60px;
+    position: absolute;
+}
+button.p-paginator-element.p-link.p-ripple{
+    min-width: 2.0rem;
+    height: 2.0rem;
+}
+app-reception-registry-filter{
+    display: inline-block;
+    width: 100%;
+    margin: 5px 0px 5px 0px;
+}
+.layout-content{
+    padding: 2rem;
+}
+.content-section{
+    background-color: var(--surface-b);
+    color: var(--text-color);
+    box-sizing: border-box;
+    font-family: var(--font-family);
+    font-weight: 400;
+    color: var(--text-color);
+    -webkit-font-smoothing: antialiased;
+}
+.content-section .card{
+    background: var(--surface-c);
+    box-shadow: 0 2px 1px -1px rgba(0,0,0,.2), 0 1px 1px 0 rgba(0,0,0,.14), 0 1px 3px 0 rgba(0,0,0,.12);
+    border-radius: 4px;
+    margin-bottom: 2rem;
+    padding: 1rem;
+}
+label.control-title{
+    font-family: var(--font-family);
+    font-weight: 500;
+}
+
+p-table div.p-datatable .p-datatable-thead > tr.table-header > th{
+    padding: 5px;
+    background-color: #ced4da;
+}
+
+p-table div.p-datatable .p-datatable-tbody > tr > td{
+    padding: 0.5px;
+}
+
+div.button-div {
+    padding: 0rem 1rem 0rem 1rem;
+    margin-bottom: 0rem;
+}

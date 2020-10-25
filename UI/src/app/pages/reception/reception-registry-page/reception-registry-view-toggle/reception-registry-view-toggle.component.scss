@@ -1,0 +1,13 @@
+.view-toggle-container{
+    display: flex;
+    position: absolute;
+    right: 0px;
+    img{
+        max-width: 32px;
+        max-height: 32px;
+        cursor: pointer;
+    }
+    img.selected{
+        background-color: #dee2e6;
+    }
+}

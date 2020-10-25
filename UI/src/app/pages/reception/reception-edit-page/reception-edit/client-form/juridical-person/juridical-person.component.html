@@ -1,0 +1,32 @@
+<div class="p-fluid p-grid" [formGroup]="formGroup">
+    <div class="p-col-6 p-grid p-fluid">
+         <label class="control-title p-col-12 p-mb-2 p-md-2 p-mb-md-0">Наименование</label>
+        <div class="p-col">
+            <input type="text" pInputText [formControlName]="formControlNames.name" />
+        </div>
+    </div>
+    <div class="p-col-6 p-grid p-fluid">
+            <label class="control-title p-col-12 p-mb-2 p-md-2 p-mb-md-0">ИНН</label>
+        <div class="p-col">
+            <input type="text" pInputText [formControlName]="formControlNames.inn" />
+        </div>
+    </div>
+    <div class="p-col-6 p-grid p-fluid">
+        <label class="control-title p-col-12 p-mb-2 p-md-2 p-mb-md-0">КПП</label>
+        <div class="p-col">
+            <input type="text" pInputText [formControlName]="formControlNames.kpp" />
+        </div>
+    </div>
+    <div class="p-col-6 p-grid p-fluid">
+        <label class="control-title p-col-12 p-mb-2 p-md-2 p-mb-md-0">e-mail</label>
+        <div class="p-col">
+            <input type="text" pInputText [formControlName]="formControlNames.email" />
+        </div>
+    </div>
+    <div class="p-col-6 p-grid p-fluid">
+        <label class="control-title p-col-12 p-mb-2 p-md-2 p-mb-md-0">тел.</label>
+        <div class="p-col">
+            <input type="text" pInputText [formControlName]="formControlNames.phone" />
+        </div>
+    </div>
+</div>

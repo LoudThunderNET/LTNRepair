@@ -1,0 +1,55 @@
+<p-table 
+    [value]="Items"
+    [rowHover]="true"
+    dataKey="id"
+    styleClass="p-datatable-sm p-datatable-gridlines">
+
+    <ng-template pTemplate="colgroup">
+        <colgroup>
+            <col style="width: 5%;">
+            <col style="width: 5%;">
+            <col style="width: 30%;">
+            <col style="width: 30%;">
+            <col style="width: 15%;">
+            <col style="width: 10%;">
+            <col style="width: 5%;">
+        </colgroup>
+    </ng-template>
+
+    <ng-template pTemplate="header">
+        <tr class="table-header">
+            <th>Номер</th>
+            <th>Дата приемки</th>
+            <th>Клиент</th>
+            <th>Оборудование/Жалоба</th>
+            <th>Статус</th>
+            <th>Стоимость</th>
+            <th></th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-item>
+        <tr>
+            <td>{{item.id}}</td>
+            <td>{{item.creationDate | date:'dd.MM.yyyy'}}</td>
+            <td>
+                <ul class="cell-list">
+                   <li *ngIf="item.client.type.id == Phisical.id">{{item.client.lastName}} {{item.client.firstName}} {{item.client.middleName}}</li> 
+                   <li *ngIf="item.client.type.id == Juridical.id">{{item.client.name}}</li> 
+                   <li *ngIf="item.client.phone">{{item.client.phone}}</li> 
+                   <li *ngIf="item.client.email">{{item.client.email}}</li> 
+                </ul>
+            </td>
+            <td>
+                <ul class="cell-list">
+                    <li>{{item.equipment.name}}</li>
+                    <li>{{item.defectDescription}}</li>
+                </ul>
+            </td>
+            <td>{{item.status.text}}</td>
+            <td>{{item.repairCost}}</td>
+            <td>
+                <button pButton pRipple type="button" class="p-button-rounded p-button-outlined" icon="pi pi-pencil" [routerLink]="['/reception/edit', item.id]"></button>
+            </td>
+        </tr>
+    </ng-template>
+</p-table>

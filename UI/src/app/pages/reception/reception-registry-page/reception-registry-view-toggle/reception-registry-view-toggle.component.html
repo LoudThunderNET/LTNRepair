@@ -1,0 +1,12 @@
+<div class="view-toggle-container">
+    <img id="grid-toggle" 
+        class="grid-toggle" 
+        [class]={selected:GridView} 
+        src="../../../../../assets/images/icons8-grid-view-32.png" 
+        (click)=toggle()>
+    <img id="list-toggle" 
+        class="list-toggle" 
+        [class]={selected:!GridView} 
+        src="../../../../../assets/images/icons8-card-view-32.png" 
+        (click)=toggle()>
+</div>

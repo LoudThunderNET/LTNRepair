@@ -1,0 +1,8 @@
+<p-tabView 
+    styleClass="quick-filter"
+    (onChange)="onTabChange($event)">
+    <p-tabPanel *ngFor="let status of statuses; let i = index"
+        [header]="!status ? 'Всё' : status.text"
+        [selected]="(!currentStatus && i === 0) || currentStatus && currentStatus.id === status.id">
+    </p-tabPanel>
+</p-tabView>

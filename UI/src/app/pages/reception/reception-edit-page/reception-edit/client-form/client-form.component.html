@@ -1,0 +1,27 @@
+<div [formGroup]="formGroup" class="card">
+    <div class="p-fluid p-grid">
+        <label for="clientName" class="control-title p-col-12 p-mb-2 p-md-2 p-mb-md-0">Клиент<span *ngIf="modelChanged$ | async as basket">{{onClientChange(basket)}}<span *ngIf="changed">*</span></span></label>
+        <div class="p-col p-grid p-fluid">
+            <div class="p-col-4 p-grid p-fluid">
+                <div class="p-col p-field-checkbox" *ngFor="let type of types">
+                    <input type="radio"  
+                        [id]="type.id"
+                        [value]="type"
+                        [formControlName]="formControlNames.type"/>
+                    <label [for]="type.id">{{type.text}}</label>
+                </div>
+            </div>
+            <div class="p-col p-grid p-fluid">
+                <p-button id="save" pRipple icon="pi pi-check" label="Сохранить" [disabled]="!isSaveAvailable" class="p-field p-mr-1 pml-1"></p-button>
+                <p-button id="saveAsNew" pRipple icon="pi pi-check" label="Сохранить как новый" [disabled]="!isSaveAvailable" class="p-field p-mr-1 pml-1"></p-button>
+                <button id="chooseClientDlgButton" pButton pRipple icon="pi pi-ellipsis-h" class="p-field p-mr-1 pml-1"></button>
+            </div>
+        </div>
+    </div>
+    <app-juridical-person   [style.display]="formGroupControls.type.value.id === Juridical.id ? 'block': 'none'"
+                            [formControlName]="formControlNames.juridical">
+    </app-juridical-person>
+    <app-physical-person    [style.display]="formGroupControls.type.value.id === Phisical.id ? 'block': 'none'"
+                            [formControlName]="formControlNames.physical">
+    </app-physical-person>
+</div>

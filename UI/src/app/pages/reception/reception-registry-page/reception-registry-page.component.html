@@ -1,0 +1,16 @@
+<ng-container>
+    <!-- фильтр -->
+    <div class="row">
+        <app-reception-registry-filter></app-reception-registry-filter>
+    </div>
+    <!-- фильтр по статусам, пагинатор, переключение вида -->
+    <div class="row">
+        <app-reception-quick-filter></app-reception-quick-filter>
+        <app-reception-registry-paginator></app-reception-registry-paginator>
+        <app-reception-registry-view-toggle></app-reception-registry-view-toggle>
+    </div>
+    <!-- таблица -->
+    <div class="row" *ngIf="showGrid">
+        <app-reception-registry-table></app-reception-registry-table>
+    </div>
+</ng-container>

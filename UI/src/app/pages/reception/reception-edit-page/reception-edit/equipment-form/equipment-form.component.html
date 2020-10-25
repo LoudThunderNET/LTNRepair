@@ -1,0 +1,67 @@
+<div [formGroup]="formGroup" class="p-fluid p-field p-grid">
+    <label for="equipment" class="control-title p-col-12 p-mb-2 p-md-2 p-mb-md-0">Оборудование</label>
+    <div class="p-col p-grid p-fluid">
+        <div class="p-col">
+            <input pInputText id="equipment" type="text" [formControlName]="formControlNames.name" />
+        </div>
+        <div class="">
+            <button id="chooseEquipmentDlgButton" pButton pRipple icon="pi pi-ellipsis-h" (click)="onClickChooseEquipmentDlgButton($event)"></button>
+        </div>
+    </div>
+</div>
+
+<p-dialog 
+    header="Выбор оборудования" 
+    [(visible)]="showChooseEquipmentDlg"
+    [modal]="true"
+    [maximizable]="true"
+    [style]="{width: '100vw'}"
+    contentStyleClass="layout-content content-section"
+    styleClass="p-fluid"
+    (onShow)="onChooseEquipmentShowing($event, dialog)"
+    (onHide)="onChooseEquipmentHiding($event)" #dialog>
+    <div class="card p-grid">
+        <!-- tree -->
+        <div class="p-field p-grid">
+            <p-tree 
+                [value]="treeNodes" 
+                selectionMode="single" 
+                [(selection)]="selectedNode"
+                (onNodeSelect)="loadGroupEquipments($event)"
+                scrollHeight="flex">
+            </p-tree>
+        </div>
+        <!-- table -->
+        <div class="p-col">
+            <p-table
+                id="equipmentTableRowSelected"
+                [value]="equipments"    
+                [rowHover]="true"
+                dataKey="id"
+                styleClass="p-datatable-sm p-datatable-gridlines"
+                [(selection)]="selectedEquipment"
+                selectionMode="single">
+                
+                <ng-template pTemplate="header">
+                    <tr class="table-header">
+                        <th>Наименование</th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-product >
+                    <tr [pSelectableRow]="product">
+                        <td>{{product.name}}</td>
+                    </tr>
+                </ng-template>        
+            </p-table>
+        </div>
+    </div>
+    <div class="p-fluid p-formgrid p-grid card p-ai-center vertical-container">
+        <div class="p-field button-div">
+            <button id="save" pButton pRipple icon="pi pi-check" label="Сохранить" [disabled]="!selectedEquipment" (click)="onSaveButtonClick($event)"></button>
+        </div>
+        <div class="p-field button-div">
+            <button id="cancel" pButton pRipple icon="pi pi-times" class="p-button-secondary" label="Отменить" (click)="onCancelButtonClick($event)"></button>
+        </div>
+    </div>
+
+</p-dialog>

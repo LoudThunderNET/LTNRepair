@@ -1,0 +1,65 @@
+<form [formGroup]="formGroup">
+    <!-- дата, номер, статус -->
+    <div class="p-field p-grid">
+        <div class="p-field">
+            <label class="control-title p-col-12 p-mb-2 p-md-2 p-mb-md-0">Дата</label>
+        </div>
+        <div class="p-field">
+            <label class="p-col-12 p-mb-2 p-md-2 p-mb-md-0">{{formGroupControls.creationDate.value | date:'dd.MM.yyyy'}}</label>
+        </div>
+        <div class="p-field">
+            <label class="control-title p-col-12 p-mb-2 p-md-2 p-mb-md-0">Номер</label>
+        </div>
+        <div class="p-field">
+            <label class="p-col-12 p-mb-2 p-md-2 p-mb-md-0">{{formGroupControls.id.value}}</label>
+        </div>
+        <app-order-status-view [formControlName]="formControlNames.status"></app-order-status-view>
+    </div>
+
+    <!-- результат диагностики -->
+    <div class="p-field p-grid">
+        <div class="p-col-12 p-mb-2 p-md-2 p-mb-md-0">
+            <label class="control-title">Результат диагностики</label>
+        </div>
+        <div class="p-col">
+            <label class="">{{formGroupControls.diagnosticResult.value}}</label>
+        </div>
+    </div>
+
+    <!-- стоимость -->
+    <div class="p-field p-grid">
+        <div class="p-col-12 p-mb-2 p-md-2 p-mb-md-0">
+            <label class="control-title">Стоимость</label>
+        </div>
+        <div class="p-col-12 p-mb-2 p-md-2 p-mb-md-0">
+            <label class="">{{formGroupControls.repairCost.value}}</label>
+        </div>
+    </div>
+
+    <app-equipment-form [formControlName]="formControlNames.equipment" ></app-equipment-form>
+    <app-client-form [formControlName]="formControlNames.client"></app-client-form>
+
+    <!-- жалоба -->
+    <div class="p-fluid p-field p-grid">
+        <label for="defectDescription" class="control-title p-col-12 p-mb-2 p-md-2 p-mb-md-0">Жалоба</label>
+        <div class="p-col">
+            <textarea id="defectDescription" [formControlName]="formControlNames.defectDescription" class="p-inputtextarea p-inputtext p-component" pInputTextarea></textarea>
+        </div>
+    </div>
+
+    <!-- комплектация -->
+    <div class="p-fluid p-field p-grid">
+        <label for="complectation" class="control-title p-col-12 p-mb-2 p-md-2 p-mb-md-0">Комплектация</label>
+        <div class="p-col">
+            <textarea id="complectation" [formControlName]="formControlNames.complectation" pInputTextarea class="p-inputtextarea p-inputtext p-component"></textarea>
+        </div>
+    </div>
+
+    <!-- внешний вид -->
+    <div class="p-fluid p-field p-grid">
+        <label for="externalStateDescription" class="control-title p-col-12 p-mb-2 p-md-2 p-mb-md-0">Внешний вид</label>
+        <div class="p-col">
+            <input pInputText id="externalStateDescription" type="text" class="" [formControlName]="formControlNames.externalStateDescription" />
+        </div>
+    </div>
+</form>

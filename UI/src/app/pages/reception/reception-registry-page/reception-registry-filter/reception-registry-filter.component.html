@@ -1,0 +1,13 @@
+<div class="filter-panel">
+    <div class="filter-extend-filter vertical-center">
+        <p-toggleButton [(ngModel)]="expandFilterOpened" onIcon="pi pi-times" offIcon="pi pi-bars" iconPos="right"></p-toggleButton>
+    </div>
+
+    <div class="filter-input vertical-center">
+        <input type="text" pInputText [(ngModel)]="searchedText" placeholder="Введите текст для поиска" (keydown)="onSearchTextKeyPressed($event)" />
+    </div>
+    
+    <div class="filter-search-button vertical-center">
+        <p-button label="Найти" icon="pi pi-search" iconPos="left" (onClick)="onSearchButtonClick($event)"></p-button>
+    </div>
+</div>
