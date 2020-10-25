@@ -10,100 +10,15 @@ import { Order } from '../../domain/order/order';
 import { JuridicalPerson } from '../../domain/order/juridical-person';
 import { PhysicalPerson } from '../../domain/order/physical-person';
 import { Client } from 'src/app/domain/client';
+import {ClientService} from 'src/app/services/ClientService/client.service';
 
 @Injectable()
 export class ReceptionService {
-  private static clients: Client []=[
-    {
-      id:1,
-      type:ClientTypeEnum.Phisical,
-      firstName:'Виктор', 
-      lastName:'Иванов', 
-      middleName:'Петрович',
-      phone:'+7-958-661-45-87',
-      email:null,
-      inn:null,
-      kpp: null,
-      name: null
-    },
-    {
-      id: 2,
-      type: ClientTypeEnum.Phisical,
-      lastName:'Петров', 
-      firstName:'Иван', 
-      middleName:'Иванович',
-      email:'ivanov@ya.ru',
-      phone: null,
-      inn:null,
-      kpp: null,
-      name: null
-    },
-    {
-      id:3,
-      type: ClientTypeEnum.Phisical,
-      lastName:'Сидоренко', 
-      firstName:'Андрей', 
-      middleName:'Павлович',
-      email:null,
-      phone:'+7-922-789-56-21',
-      inn:null,
-      kpp: null,
-      name: null
-    },
-    {
-      id:4,
-      type: ClientTypeEnum.Phisical,
-      lastName:'Варчук', 
-      firstName:'Олег', 
-      middleName:'Ильич',
-      email:'face@mai.ru',
-      phone:null,
-      inn:null,
-      kpp: null,
-      name: null
-    },
-    {
-      id:5,
-      type: ClientTypeEnum.Phisical,
-      lastName:'Кривчиков', 
-      firstName:'Евгений', 
-      middleName:'Петрович',
-      email:'t.center@mai.ru',
-      phone:null,
-      inn:null,
-      kpp: null,
-      name: null
-    },
-    {
-      id:6,
-      type: ClientTypeEnum.Phisical,
-      lastName:'Строгова', 
-      firstName:'Татьяна', 
-      middleName:'Андреевна',
-      email:'t.strogova@gmail.com',
-      phone:null,
-      inn:null,
-      kpp: null,
-      name: null
-    },
-    {
-      id:7,
-      type: ClientTypeEnum.Phisical,
-      lastName:'Путин', 
-      firstName:'Вовка', 
-      middleName:'Вовкович',
-      email:'putin@kremlin.ru',
-      phone:null,
-      inn:null,
-      kpp: null,
-      name: null
-    }
-  ];
   private static items : OrderRegistryItem[]  = [
     {
       id:1,
       creationDate:new Date(2020, 9, 1),
-      client: ReceptionService.clients[0],
+      client: ClientService.clients[0],
       status: OrderItemStatusEnum.Diagnostics,
       equipment:{
         id:1,
@@ -119,7 +34,7 @@ export class ReceptionService {
     {
       id:2,
       creationDate:new Date(2020, 9, 1),
-      client:ReceptionService.clients[1],
+      client:ClientService.clients[1],
       status: OrderItemStatusEnum.DiagnosticsCompleted,
       equipment:{
         id:2,
@@ -135,7 +50,7 @@ export class ReceptionService {
     {
       id:3,
       creationDate:new Date(2020, 9, 2),
-      client:ReceptionService.clients[2],
+      client:ClientService.clients[2],
       status: OrderItemStatusEnum.PaymentNeeded,
       equipment:{
         id:3,
@@ -151,7 +66,7 @@ export class ReceptionService {
     {
       id:4,
       creationDate:new Date(2020, 9, 2),
-      client:ReceptionService.clients[3],
+      client:ClientService.clients[3],
       equipment:{
         id:4,
         name:'Ноутбук Acer 5320'
@@ -167,7 +82,7 @@ export class ReceptionService {
     {
       id:5,
       creationDate:new Date(2020, 9, 3),
-      client:ReceptionService.clients[4],
+      client:ClientService.clients[4],
       equipment:{
         id:5,
         name:'Ноутбук Asus F35'
@@ -183,7 +98,7 @@ export class ReceptionService {
     {
       id:6,
       creationDate:new Date(2020, 9, 3),
-      client:ReceptionService.clients[5],
+      client:ClientService.clients[5],
       equipment:{
         id:6,
         name:'Ноутбук Asus F55'
@@ -199,7 +114,7 @@ export class ReceptionService {
     {
       id:7,
       creationDate:new Date(2020, 9, 3),
-      client:ReceptionService.clients[6],
+      client:ClientService.clients[6],
       equipment:{
         id:5,
         name:'Ноутбук Asus F35'
