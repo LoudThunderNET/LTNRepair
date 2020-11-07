@@ -5,11 +5,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.9" />
+    <PackageReference Include="MediatR" Version="9.0.0" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\DataAccess.Abstraction\DataAccess.Abstraction.csproj" />
+    <Folder Include="Dependency\" />
   </ItemGroup>
 
 </Project>

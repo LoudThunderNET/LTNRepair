@@ -44,3 +44,25 @@ testem.log
 # System Files
 .DS_Store
 Thumbs.db
+/Api/Reception.Api/.vs/Reception.Api
+/Api/Reception.Api/Shared/DataAccess.Abstraction/obj
+/Api/Reception.Api/Shared/DataAccess.Abstraction/bin/*
+/Api/Reception.Api/Shared/DataAccess.EntitFramework/bin/*
+/Api/Reception.Api/Shared/DataAccess.EntitFramework/obj/*
+/Api/Reception.Api/Application/AppServices/bin/Debug/netcoreapp3.1
+/Api/Reception.Api/Application/AppServices/obj/Debug/netcoreapp3.1
+/Api/Reception.Api/Application/AppServices/obj
+/Api/Reception.Api/Application/Reception.Api/bin/Debug/netcoreapp3.1
+/Api/Reception.Api/Application/Reception.Api/obj
+/Api/Reception.Api/Application/Reception.Handlers/bin/Debug/netcoreapp3.1
+/Api/Reception.Api/Application/Reception.Handlers/obj
+/Api/Reception.Api/Core/Domain/bin/Debug/netcoreapp3.1
+/Api/Reception.Api/Core/Domain/obj
+/Api/Reception.Api/CQSR.Abstraction/bin/Debug/netcoreapp3.1
+/Api/Reception.Api/CQSR.Abstraction/obj
+/Api/Reception.Api/Infrastructure/ComponentRegistrar/bin/Debug/netcoreapp3.1
+/Api/Reception.Api/Infrastructure/ComponentRegistrar/obj
+/Api/Reception.Api/Infrastructure/Reception.Infrastructure/bin/Debug/netcoreapp3.1
+/Api/Reception.Api/Infrastructure/Reception.Infrastructure/obj
+/Api/Reception.Api/Shared/Common.Lib/bin/Debug/netcoreapp3.1
+/Api/Reception.Api/Shared/Common.Lib/obj

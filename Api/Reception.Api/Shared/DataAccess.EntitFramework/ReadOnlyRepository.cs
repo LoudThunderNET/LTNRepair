@@ -1,11 +1,9 @@
 ﻿using DataAccess.Abstraction;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
-using System.Data.Entity;
-using System.Data.Entity.Core.Metadata.Edm;
-using System.Data.Entity.Infrastructure;
 using System.Linq;
-using System.Reflection;
+using System.Linq.Expressions;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -18,6 +16,7 @@ namespace DataAccess.EntityFramework
     public class ReadOnlyRepository<TEntity> : IReadOnlyRepository<TEntity> where TEntity : class, new()
     {
         private readonly DbContext _dbContext;
+        protected readonly DbSet<TEntity> DbSet;
 
         /// <summary>
         /// Инициализирует экземпляр <see cref="ReadOnlyRepository{TEntity}"/>.
@@ -26,25 +25,31 @@ namespace DataAccess.EntityFramework
         public ReadOnlyRepository(DbContext dbContext)
         {
             _dbContext = dbContext;
+            DbSet = dbContext.Set<TEntity>();
         }
 
         /// <inheritdoc/>
-        public Task<TEntity> FindAsync(Func<TEntity, int> keySelector, CancellationToken cancellation)
+        public async Task<TEntity> FindAsync(int key, CancellationToken cancellation)
         {
-            var objectSet = ((IObjectContextAdapter)_dbContext).ObjectContext.CreateObjectSet<TEntity>();
-            //Act
-            var keyName = objectSet.EntitySet.ElementType.KeyMembers.Select(k=>k.Name).SingleOrDefault();
-
+            return await DbSet.FindAsync(key, cancellation);
         }
 
-        public Task<IReadOnlyCollection<TEntity>> QueryCollectionAsync(IQueryable<TEntity> queryBulder, CancellationToken cancellation)
+        /// <inheritdoc/>
+        public async Task<IReadOnlyCollection<TEntity>> QueryCollectionAsync(Func<IQueryable<TEntity>, Task<IReadOnlyCollection<TEntity>>> queryBulder, CancellationToken cancellation)
         {
-            throw new NotImplementedException();
+            return await queryBulder(DbSet);
         }
 
-        public Task<TEntity> QueryFirstOrDefaultAsync(IQueryable<TEntity> queryBulder, CancellationToken cancellation)
+        /// <inheritdoc/>
+        public async Task<TEntity> QueryFirstOrDefaultAsync(Func<IQueryable<TEntity>, Task<TEntity>> queryBulder, CancellationToken cancellation)
         {
-            throw new NotImplementedException();
+            return await queryBulder(DbSet);
+        }
+
+        /// <inheritdoc/>
+        public async Task<bool> ExistsAsync(Expression<Func<TEntity, bool>> predicate, CancellationToken cancellation)
+        { 
+            return await DbSet.AnyAsync(predicate, cancellation);
         }
     }
 }

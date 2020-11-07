@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -18,7 +19,7 @@ namespace DataAccess.Abstraction
         /// <param name="keySelector">Селектор ключа.</param>
         /// <param name="cancellation">Отмена задачи</param>
         /// <returns>Сущность.</returns>
-        Task<TEntity> FindAsync(Func<TEntity, int> keySelector, CancellationToken cancellation);
+        Task<TEntity> FindAsync(int key, CancellationToken cancellation);
 
         /// <summary>
         /// Возвращает коллекцию сущностей по запросу.
@@ -26,7 +27,7 @@ namespace DataAccess.Abstraction
         /// <param name="queryBulder">Строитель запроса.</param>
         /// <param name="cancellation">Отмена задачи</param>
         /// <returns>Коллекцию сущностей по запросу.</returns>
-        Task<IReadOnlyCollection<TEntity>> QueryCollectionAsync(IQueryable<TEntity> queryBulder, CancellationToken cancellation);
+        Task<IReadOnlyCollection<TEntity>> QueryCollectionAsync(Func<IQueryable<TEntity>, Task<IReadOnlyCollection<TEntity>>> queryBulder, CancellationToken cancellation);
 
         /// <summary>
         /// Возвращает сущностm по запросу.
@@ -34,6 +35,13 @@ namespace DataAccess.Abstraction
         /// <param name="queryBulder">Строитель запроса.</param>
         /// <param name="cancellation">Отмена задачи</param>
         /// <returns>Коллекцию сущностей по запросу.</returns>
-        Task<TEntity> QueryFirstOrDefaultAsync(IQueryable<TEntity> queryBulder, CancellationToken cancellation);
+        Task<TEntity> QueryFirstOrDefaultAsync(Func<IQueryable<TEntity>, Task<TEntity>> queryBulder, CancellationToken cancellation);
+
+        /// <summary>
+        /// Сообщает есть ли записи удовлетворяющие запросу <paramref name="predicate"/>.
+        /// </summary>
+        /// <param name="predicate">Предикат условия.</param>
+        /// <param name="cancellation">ОТмена задачи.</param>
+        Task<bool> ExistsAsync(Expression<Func<TEntity, bool>> predicate, CancellationToken cancellation);
     }
 }
