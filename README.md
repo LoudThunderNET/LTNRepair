@@ -8,3 +8,4 @@
   - открыть командную строку;
   - выполнить mpm install;
   - для запуска UI выполнить ng serve --open=true
+3. Запустите PowerShell от имени адимнистратора. Наберите Set-ExecutionPolicy -Scope LocalMachine Bypass
