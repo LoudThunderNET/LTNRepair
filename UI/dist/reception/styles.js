@@ -627,11 +627,11 @@ module.exports = content.locals || {};
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\Users\sviri\source\repos\RepairSite\UI\src\styles.scss */"./src/styles.scss");
-__webpack_require__(/*! C:\Users\sviri\source\repos\RepairSite\UI\node_modules\primeng\resources\themes\saga-blue\theme.css */"./node_modules/primeng/resources/themes/saga-blue/theme.css");
-__webpack_require__(/*! C:\Users\sviri\source\repos\RepairSite\UI\node_modules\primeng\resources\primeng.min.css */"./node_modules/primeng/resources/primeng.min.css");
-__webpack_require__(/*! C:\Users\sviri\source\repos\RepairSite\UI\node_modules\primeicons\primeicons.css */"./node_modules/primeicons/primeicons.css");
-module.exports = __webpack_require__(/*! C:\Users\sviri\source\repos\RepairSite\UI\node_modules\primeflex\primeflex.css */"./node_modules/primeflex/primeflex.css");
+__webpack_require__(/*! C:\Users\Сергей\source\repos\RepairSite\UI\src\styles.scss */"./src/styles.scss");
+__webpack_require__(/*! C:\Users\Сергей\source\repos\RepairSite\UI\node_modules\primeng\resources\themes\saga-blue\theme.css */"./node_modules/primeng/resources/themes/saga-blue/theme.css");
+__webpack_require__(/*! C:\Users\Сергей\source\repos\RepairSite\UI\node_modules\primeng\resources\primeng.min.css */"./node_modules/primeng/resources/primeng.min.css");
+__webpack_require__(/*! C:\Users\Сергей\source\repos\RepairSite\UI\node_modules\primeicons\primeicons.css */"./node_modules/primeicons/primeicons.css");
+module.exports = __webpack_require__(/*! C:\Users\Сергей\source\repos\RepairSite\UI\node_modules\primeflex\primeflex.css */"./node_modules/primeflex/primeflex.css");
 
 
 /***/ })

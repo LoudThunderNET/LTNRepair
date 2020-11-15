@@ -6,14 +6,11 @@
 
   <ItemGroup>
     <Folder Include="Order\Commands\" />
-    <Folder Include="Queries\" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Core\Domain\Domain.csproj" />
     <ProjectReference Include="..\..\CQSR.Abstraction\CQSR.Abstraction.csproj" />
-    <ProjectReference Include="..\..\Shared\Common.Lib\Common.Lib.csproj" />
-    <ProjectReference Include="..\..\Shared\DataAccess.Abstraction\DataAccess.Abstraction.csproj" />
+    <ProjectReference Include="..\Reception.Api.Contracts\Reception.Contracts.csproj" />
   </ItemGroup>
 
 </Project>

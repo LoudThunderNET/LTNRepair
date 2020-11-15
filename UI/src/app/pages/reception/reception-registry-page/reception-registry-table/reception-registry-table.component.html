@@ -1,3 +1,4 @@
+<ng-container *ngIf="communicator.CommandSource | async as command">{{handleCommand(command)}}</ng-container>
 <p-table 
     [value]="Items"
     [rowHover]="true"

@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Reception.Handlers.Order.Queries;
 
 namespace Reception.Api.Controllers
 {
@@ -15,10 +16,17 @@ namespace Reception.Api.Controllers
     {
         private readonly IMediator _mediator;
 
+        public OrderController(IMediator mediator)
+        {
+            _mediator = mediator;
+        }
+
         [HttpGet("{orderId}")]
-        public IActionResult GetAction(int orderId, CancellationToken cancellation)
-        { 
-            _mediator.Send()
+        public async Task<IActionResult> GetAction(int orderId, CancellationToken cancellation)
+        {
+            var order = await _mediator.Send(new GetOrderByIdQuery(orderId), cancellation);
+
+            return Ok(order);
         }
     }
 }

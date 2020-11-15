@@ -1,11 +1,9 @@
-﻿using Common.Lib;
-using Common.Lib.Mapping;
-using CQSR.Abstraction;
-using DataAccess.Abstraction;
+﻿using CQSR.Abstraction;
+using Reception.Contracts.Reception;
+using Reception.Handlers.Abstractions;
 using Reception.Handlers.Order.Queries;
 using System.Threading;
 using System.Threading.Tasks;
-using Db = Domain.Entities;
 
 namespace Reception.Handlers.Order.Handlers
 {
@@ -14,24 +12,17 @@ namespace Reception.Handlers.Order.Handlers
     /// </summary>
     public sealed class GetOrderByIdQueryHandler : IQueryHandler<GetOrderByIdQuery, OrderRegistryItem>
     {
-        private readonly IReadOnlyRepository<Db.Order> _orderRepositroy;
-        private readonly ITypeMapper _mapper;
+        private readonly IOrderAppService _orderAppService;
 
-        public GetOrderByIdQueryHandler(
-            IReadOnlyRepository<Db.Order> orderRepositroy, 
-            ITypeMapper mapper)
+        public GetOrderByIdQueryHandler(IOrderAppService orderAppService)
         {
-            _orderRepositroy = orderRepositroy;
-            _mapper = mapper;
+            _orderAppService = orderAppService;
         }
 
         /// <inheritdoc/>
-        public async Task<OrderRegistryItem> Handle(GetOrderByIdQuery request, CancellationToken cancellationToken)
+        public Task<OrderRegistryItem> Handle(GetOrderByIdQuery request, CancellationToken cancellationToken)
         {
-            var order = await _orderRepositroy.FindAsync(request.OrderId, cancellationToken) 
-                ?? throw new EntityNotFoundException($"Заказ с идентификатором {request.OrderId} не найден");
-
-            return _mapper.Map<Db.Order, OrderRegistryItem>(order);
+            return _orderAppService.GetOrderRegistryItemByIdAsync(request.OrderId, cancellationToken);
         }
     }
 }

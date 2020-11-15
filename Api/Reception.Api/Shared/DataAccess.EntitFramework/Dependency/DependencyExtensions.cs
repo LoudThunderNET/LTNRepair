@@ -1,6 +1,8 @@
 ﻿using DataAccess.Abstraction;
+using DataAccess.EntityFramework.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using Reception.Domain.Services.Abstractions;
 
 namespace DataAccess.EntityFramework.Dependency
 {
@@ -11,9 +13,13 @@ namespace DataAccess.EntityFramework.Dependency
         {
             services.AddTransient(typeof(IReadOnlyRepository<>), typeof(ReadOnlyRepository<>));
             services.AddTransient(typeof(IMutableRepository<>), typeof(MutableRepository<>));
-            services.AddDbContext<TDbContext>(dbO=> 
+            services.AddTransient<ITransactionManager, TransactionManager>();
+            services.AddScoped<DbContext, TDbContext>();
+
+            services.AddDbContext<TDbContext>(options => 
             {
-                dbO.EnableSensitiveDataLogging(true);
+                options.EnableSensitiveDataLogging(true);
+                options.UseSqlServer(connectionString);
             });
         }
     }

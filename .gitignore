@@ -66,3 +66,11 @@ Thumbs.db
 /Api/Reception.Api/Infrastructure/Reception.Infrastructure/obj
 /Api/Reception.Api/Shared/Common.Lib/bin/Debug/netcoreapp3.1
 /Api/Reception.Api/Shared/Common.Lib/obj
+/Api/Reception.Api/Application/Reception.Api.Contracts/obj
+/Api/Reception.Api/Application/Reception.Api.Contracts/bin/Debug/netcoreapp3.1
+/Api/Reception.Api/Application/Reception.AppServices/bin/Debug/netcoreapp3.1
+/Api/Reception.Api/Application/Reception.AppServices/obj
+/Api/Reception.Api/Application/Reception.Domain/bin/Debug/netcoreapp3.1
+/Api/Reception.Api/Application/Reception.Domain/obj
+/Api/Reception.Api/Application/Reception.Domain.Services/bin/Debug/netcoreapp3.1
+/Api/Reception.Api/Application/Reception.Domain.Services/obj

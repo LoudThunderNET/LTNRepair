@@ -25,7 +25,7 @@ export class ReceptionEditPageComponent  implements OnInit {
     private confirmationService: ConfirmationService) { 
   }
 
-  ngOnInit(): void {
+  ngOnInit():void {
     const orderId = this.activatedRoute.snapshot.params['id'];
     if(orderId){
       this.title.setTitle(`Редактирование заказа номер ${orderId}`);
@@ -43,7 +43,7 @@ export class ReceptionEditPageComponent  implements OnInit {
   }
 
   onOrderChange(order: Order){
-    console.log('changed');
+//    console.log('changed');
     this.isModified = true;
   }
 

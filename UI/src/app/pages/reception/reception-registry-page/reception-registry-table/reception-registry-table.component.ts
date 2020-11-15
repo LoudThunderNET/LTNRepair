@@ -28,24 +28,23 @@ export class ReceptionRegistryTableComponent implements OnInit {
 
   constructor(private receptionService : ReceptionService, public communicator: CommunicatorService) { }
 
-  ngOnInit(): void {
-    this.communicator.CommandSource.subscribe(cmd => this.handleCommand(cmd));
+  ngOnInit() {
     this.loadRegistry(0, Constants.ReceptionRegistryPageSize, null, null);
   }
   
   loadRegistry(skip:number, take:number, text:string, status:number){
     this.receptionService.getByFilter({
-      skip:skip,
-      take:take,
-      text:text,
-      status:status
-    }).then(r=>{
+      skip: skip,
+      take: take,
+      text: text,
+      status: status
+    }).then(r => {
       this.Items = r.items;
       this.communicator.sendCommand(new ReceptionRegistryLoadedCommand({ totalRows: r.total }));
     });
   }
 
-  handleCommand(cmd: CommandType<any>){
+  handleCommand(cmd: CommandType<any>):string{
     let needLoad = true;
     switch(cmd.type){
       case CommandEnum.PagingCommand:{
@@ -66,11 +65,9 @@ export class ReceptionRegistryTableComponent implements OnInit {
     }
 
     if(needLoad){
-      this.loadRegistry(this.paging.skip, this.paging.take, this.filter.text, this.filterStatus.status && this.filterStatus.status.id);
+      this.loadRegistry(this.paging.skip, this.paging.take, this.filter.text, this.filterStatus && this.filterStatus.status && this.filterStatus.status.id);
     }
-  }
 
-  onEditButtonClick(event:any, id:number){
-    alert(`Выбран заказа ${id}`);
+    return null;
   }
 }

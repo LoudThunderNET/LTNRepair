@@ -38,6 +38,13 @@ export class ClientComponent extends NgxSubFormRemapComponent<Client, ClientBack
   }
 
   protected transformToFormGroup(obj: Client, defaultValues: Partial<ClientBacket>): ClientBacket {
+    if(!obj)
+      return {
+        juridical:null,
+        physical:null,
+        type:this.Phisical
+      };
+
     return {
       juridical: obj.type.id === this.Juridical.id ? obj : null,
       physical: obj.type.id === this.Phisical.id ? obj : null,

@@ -1,5 +1,5 @@
 ﻿using CQSR.Abstraction;
-using System.Collections.Generic;
+using Reception.Contracts.Reception;
 
 namespace Reception.Handlers.Order.Queries
 {

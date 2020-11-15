@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
-using System;
 using System.Collections.Generic;
-using System.Text;
+using System.Collections.ObjectModel;
 
 namespace Common.Lib.Mapping
 {
@@ -21,7 +20,12 @@ namespace Common.Lib.Mapping
 
         public void Map<TSource, TDestination>(TSource source, TDestination destination)
         {
-            _mapper.Map<TSource, TDestination>(source, destination);
+            _mapper.Map(source, destination);
+        }
+
+        public IReadOnlyCollection<TDestination> MapAsReadOnlyCollection<TSource, TDestination>(IEnumerable<TSource> source)
+        {
+            return new ReadOnlyCollection<TDestination>(_mapper.Map<TDestination[]>(source));
         }
     }
 }

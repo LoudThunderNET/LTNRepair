@@ -11,21 +11,18 @@ import { Constants } from "../../../../models/constants";
   templateUrl: './reception-registry-paginator.component.html',
   styleUrls: ['./reception-registry-paginator.component.scss']
 })
-export class ReceptionRegistryPaginatorComponent implements OnInit {
+export class ReceptionRegistryPaginatorComponent {
   totalRecords:number = 0;
   pageSize:number = Constants.ReceptionRegistryPageSize;
 
   constructor(public communicator: CommunicatorService) { }
 
-  ngOnInit(): void {
-    this.communicator.CommandSource.subscribe(cmd=> this.handleCommand(cmd));
-  }
-
-  handleCommand(cmd : CommandType<any>){
+  handleCommand(cmd : CommandType<any>):string{
     if(cmd.type == CommandEnum.ReceptionRegistryLoadedCommand){
       const receptionRegistryLoadedData = (<ReceptionRegistryLoadedCommand>cmd).data;
       this.totalRecords = receptionRegistryLoadedData.totalRows;
     }
+    return null;
   }
 
   onPageChange(event){

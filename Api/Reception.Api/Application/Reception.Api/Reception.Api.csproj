@@ -15,8 +15,13 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\Infrastructure\ComponentRegistrar\ComponentRegistrar.csproj" />
     <ProjectReference Include="..\..\Infrastructure\Reception.Infrastructure\Reception.Infrastructure.csproj" />
     <ProjectReference Include="..\..\Shared\Common.Lib\Common.Lib.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Options\" />
   </ItemGroup>
 
 
