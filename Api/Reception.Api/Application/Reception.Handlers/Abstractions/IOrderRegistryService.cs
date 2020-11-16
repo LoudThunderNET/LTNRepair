@@ -22,7 +22,7 @@ namespace Reception.Handlers.Abstractions
         /// Возвращает общее количество заказов, согласно запросу без пагинации.
         /// </summary>
         /// <param name="request">Запрос.</param>
-        /// <param name="cancellation">Отмена задачи</param>
-        Task<int> GetCountByFilterAsync(OrderRegistryRequest request, CancellationToken cancellationToken);
+        /// <param name="cancellation">Отмена задачи</param>s
+        Task<int> GetCountByFilterAsync(OrderRegistryRequest request, CancellationToken cancellation);
     }
 }

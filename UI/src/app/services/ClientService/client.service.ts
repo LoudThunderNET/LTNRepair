@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
+import { environment } from 'src/environments/environment';
 import { Client } from '../../domain/client';
 import { ClientTypeEnum } from '../../domain/enums/client-type-enum.enum';
 import {JuridicalPerson} from '../../domain/order/juridical-person';
@@ -98,14 +99,11 @@ export class ClientService {
   constructor(private httpClient: HttpClient) { }
 
   /**
-   * Возвраща заказчика по его идентификатору.
+   * Возвращает заказчика по его идентификатору.
    * @param id Идентификатор заказчика.
    */
   public getClientById(id:number):Observable<Client>{
-    const client = ClientService.clients.find((e,i,a)=> e.id == id);
-
-    const bs = new BehaviorSubject<Client>(client);
-    return bs.asObservable();
+    return this.httpClient.get<Client>(environment.apiBaseUrl+id);
   }
 
   /**

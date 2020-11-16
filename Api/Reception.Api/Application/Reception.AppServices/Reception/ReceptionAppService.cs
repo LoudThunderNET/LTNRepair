@@ -14,12 +14,17 @@ namespace AppServices.Reception
     /// <summary>
     /// Реализация сервиса приемки заказов.
     /// </summary>
-    public class ReceptionService : IOrderAppService, IOrderRegistryService
+    public class ReceptionAppService : IOrderAppService, IOrderRegistryService
     {
         private readonly IOrderService _orderService;
         private readonly ITypeMapper _mapper;
 
-        public ReceptionService(IOrderService orderService, ITypeMapper mapper)
+        /// <summary>
+        /// Инициализирует экземпляр <see cref="ReceptionAppService"/>.
+        /// </summary>
+        /// <param name="orderService">Доменный сервис заказов.</param>
+        /// <param name="mapper">Средство маппинга.</param>
+        public ReceptionAppService(IOrderService orderService, ITypeMapper mapper)
         {
             _orderService = orderService;
             _mapper = mapper;
@@ -45,7 +50,7 @@ namespace AppServices.Reception
             Order order = await _orderService.GetOrderByIdAsync(orderId, cancellation)
                 ?? throw new EntityNotFoundException($"Заказ с идентификатором {orderId} не найден");
 
-            return _mapper.Map<Order, OrderRegistryItem>(order);
+            return _mapper.Map<OrderRegistryItem>(order);
         }
     }
 }

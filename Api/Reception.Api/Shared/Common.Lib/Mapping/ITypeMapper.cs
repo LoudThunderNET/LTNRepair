@@ -8,13 +8,12 @@ namespace Common.Lib.Mapping
     public interface ITypeMapper
     {
         /// <summary>
-        /// Преобразует значения объекта <typeparamref name="TSource"/> в <typeparamref name="TDestination"/>
+        /// Преобразует значения объекта в <typeparamref name="TDestination"/>
         /// </summary>
-        /// <typeparam name="TSource">Тип исходного объект.</typeparam>
         /// <typeparam name="TDestination">Тип целевого объект.</typeparam>
         /// <param name="source">Исходный объект.</param>
         /// <returns>Целевой объект.</returns>
-        TDestination Map<TSource, TDestination>(TSource source);
+        TDestination Map<TDestination>(object source);
 
         /// <summary>
         /// Преобразует коллекицию объектов <typeparamref name="TSource"/> в коллекцию для чтений объектов <typeparamref name="TDestination"/>.

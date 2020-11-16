@@ -9,6 +9,9 @@ using AppServices.Abstractions;
 using Common.Lib.Mapping;
 using AutoMapper;
 using Reception.Infrastructure;
+using Reception.AppServices.Client;
+using Reception.Handlers.Client.Abstractions;
+using Reception.AppServices.Abstractions;
 
 namespace ComponentRegistrar
 {
@@ -29,8 +32,9 @@ namespace ComponentRegistrar
         
         public static IServiceCollection AddAppServices(this IServiceCollection services, IConfiguration configuration)
         {
-            services.AddTransient<IOrderAppService, ReceptionService>();
-            services.AddTransient<IOrderRegistryService, ReceptionService>();
+            services.AddTransient<IOrderAppService, ReceptionAppService>();
+            services.AddTransient<IOrderRegistryService, ReceptionAppService>();
+            services.AddTransient<IClientAppService, ClientAppService>();
 
             return services;
         }
@@ -38,6 +42,8 @@ namespace ComponentRegistrar
         public static IServiceCollection AddDomainServices(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddTransient<IOrderService, OrderService>();
+            services.AddTransient<IClientService, ClientService>();
+
             return services;
         }
     }
