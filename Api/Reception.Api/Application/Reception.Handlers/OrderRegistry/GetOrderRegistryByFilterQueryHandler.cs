@@ -6,7 +6,7 @@ using Reception.Handlers.OrderRegistry.Queries;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Reception.Handlers.OrderRegistry.Handlers
+namespace Reception.Handlers.OrderRegistry
 {
     /// <summary>
     /// Обработчик запроса на получение реестра заказов.

@@ -1,6 +1,9 @@
-﻿using Reception.AppServices.Abstractions;
+﻿using Microsoft.EntityFrameworkCore;
+using Reception.AppServices.Abstractions;
+using Reception.Contracts.Requests;
 using Reception.Domain.Entities;
 using Reception.Domain.Services.Abstractions;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -21,6 +24,29 @@ namespace Reception.Domain.Services
         public ClientService(IReadOnlyRepository<Client> clientRepository)
         {
             _clientRepository = clientRepository;
+        }
+
+        /// <inheritdoc/>
+        public async Task<IReadOnlyCollection<Client>> GetFilteredAsync(ClientRequest request, CancellationToken cancellation)
+        {
+            var clientds = await _clientRepository.QueryCollectionAsync(
+                q =>
+                {
+                    var queryBuilder = q;
+                    if (!string.IsNullOrEmpty(request.Name))
+                    {
+                        queryBuilder = queryBuilder.Where(c => c.Name.StartsWith(request.Name) ||
+                                    c.FirstName.StartsWith(request.Name) ||
+                                    c.LastName.StartsWith(request.Name) ||
+                                    c.MiddleName.StartsWith(request.Name));
+                        
+                    }
+                    queryBuilder = queryBuilder.Include(x => x.ClientType);
+
+                    return queryBuilder;
+                }, cancellation);
+
+            return clientds;
         }
 
         /// <inheritdoc/>

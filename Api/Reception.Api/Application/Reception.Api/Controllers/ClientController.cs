@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Reception.Contracts.Reception;
 using Reception.Handlers.Client.Queries;
+using System.Collections.Generic;
 using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
@@ -31,9 +32,22 @@ namespace Reception.Api.Controllers
         /// <returns>Модель клиента.</returns>
         [ProducesResponseType(typeof(ClientDto), (int)HttpStatusCode.OK)]
         [HttpGet("{id}")]
-        public async Task<IActionResult> Get(int id, CancellationToken cancellation)
+        public async Task<IActionResult> GetAsync(int id, CancellationToken cancellation)
         {
             return Ok(await _mediatr.Send(new GetClientByIdQuery(id), cancellation));
+        }
+
+        /// <summary>
+        /// Возвращает коллекцию клиентов отфильтрованных по подстроке в наименовании.
+        /// </summary>
+        /// <param name="searchedSubstring">Подстрока поиска.</param>
+        /// <param name="cancellation">Отмена задачи.</param>
+        /// <returns>Модель клиента.</returns>
+        [ProducesResponseType(typeof(IReadOnlyCollection<ClientDto>), (int)HttpStatusCode.OK)]
+        [HttpGet("filtered/{searchedSubstring}")]
+        public async Task<IActionResult> GetBySubstringAsync(string searchedSubstring, CancellationToken cancellation)
+        {
+            return Ok(await _mediatr.Send(new GetFilteredClientsQuery(searchedSubstring), cancellation));
         }
     }
 }

@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpUrlEncodingCodec } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
@@ -103,7 +103,7 @@ export class ClientService {
    * @param id Идентификатор заказчика.
    */
   public getClientById(id:number):Observable<Client>{
-    return this.httpClient.get<Client>(environment.apiBaseUrl+id);
+    return this.httpClient.get<Client>(environment.apiBaseUrl+'Client/'+id);
   }
 
   /**
@@ -111,16 +111,7 @@ export class ClientService {
    * @param filterString Строка поиска.
    */
   public getClientsByFilter(filterString:string):Observable<Client[]>{
-    const matchedClients = ClientService.clients.filter((e,i,a)=> {
-      if(e.type.id === ClientTypeEnum.Juridical.id){
-        return this.matchAgainstJuridicalPerson(filterString, <JuridicalPerson>e);
-      } else {
-        return this.matchAgainstPhysicalPerson(filterString, <PhysicalPerson>e);
-      };
-    });
-
-    const bs = new BehaviorSubject<Client[]>(matchedClients);
-    return bs.asObservable();
+    return this.httpClient.get<Client[]>(encodeURI(environment.apiBaseUrl+'Client/filtered/'+filterString));
   }
 
   /**

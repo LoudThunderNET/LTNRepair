@@ -9,7 +9,7 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace AppServices.Reception
+namespace Reception.AppServices
 {
     /// <summary>
     /// Реализация сервиса приемки заказов.

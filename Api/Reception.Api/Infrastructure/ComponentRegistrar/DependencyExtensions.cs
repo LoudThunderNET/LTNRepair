@@ -2,16 +2,14 @@
 using DataAccess.EntityFramework.Dependency;
 using Microsoft.Extensions.Configuration;
 using DataAccess.EntityFramework;
-using AppServices.Reception;
 using Reception.Handlers.Abstractions;
 using Reception.Domain.Services;
 using AppServices.Abstractions;
 using Common.Lib.Mapping;
 using AutoMapper;
 using Reception.Infrastructure;
-using Reception.AppServices.Client;
-using Reception.Handlers.Client.Abstractions;
 using Reception.AppServices.Abstractions;
+using Reception.AppServices;
 
 namespace ComponentRegistrar
 {
@@ -35,6 +33,7 @@ namespace ComponentRegistrar
             services.AddTransient<IOrderAppService, ReceptionAppService>();
             services.AddTransient<IOrderRegistryService, ReceptionAppService>();
             services.AddTransient<IClientAppService, ClientAppService>();
+            services.AddTransient<IEquipmentAppService, EquipmentAppService>();
 
             return services;
         }
@@ -43,6 +42,7 @@ namespace ComponentRegistrar
         {
             services.AddTransient<IOrderService, OrderService>();
             services.AddTransient<IClientService, ClientService>();
+            services.AddTransient<IEquipmentService, EquipmentService>();
 
             return services;
         }

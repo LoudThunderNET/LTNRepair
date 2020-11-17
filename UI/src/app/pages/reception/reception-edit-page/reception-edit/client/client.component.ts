@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Controls, FormUpdate, NgxSubFormRemapComponent, subformComponentProviders } from 'ngx-sub-form';
 import { Dialog } from 'primeng/dialog';
 import { BehaviorSubject, Observable } from 'rxjs';
@@ -28,13 +28,15 @@ export class ClientComponent extends NgxSubFormRemapComponent<Client, ClientBack
   public selected: FormControl = new FormControl();
   public isCreating = false;
   public isEditing = false;
-  public clientFilter = new FormControl(null);
+  public clientFilter = new FormControl('');
   public selectedClient: Client;
   emitInitialValueOnInit = false;
+  Clients:Client[] = [];
 
   constructor(public clientService: ClientService) {
     super();
     this.setDisabledState(true);
+    this.clientFilter.valueChanges.subscribe(filter=> this.loadClients(filter));
   }
 
   protected transformToFormGroup(obj: Client, defaultValues: Partial<ClientBacket>): ClientBacket {
@@ -74,6 +76,10 @@ export class ClientComponent extends NgxSubFormRemapComponent<Client, ClientBack
     };
   }
 
+  public loadClients(filterString:string){
+    this.clientService.getClientsByFilter(filterString).subscribe(r=>this.Clients = r)  
+  }
+
   //#region Event Handlers
   public onChooseClientDlgButtonClick(event) {
     this.selectedClient = null;
@@ -98,6 +104,10 @@ export class ClientComponent extends NgxSubFormRemapComponent<Client, ClientBack
 
   public onChooseClientDlgHiding(event) {
     this.hideDialog();
+  }
+  public onChooseClientDlgShowing(dialog: Dialog) {
+    dialog.maximize();
+    this.clientFilter.setValue('');
   }
 
   public onChooseClientClick(event) {

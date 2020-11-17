@@ -1,11 +1,11 @@
 ﻿using CQSR.Abstraction;
 using Reception.Contracts.Reception;
-using Reception.Handlers.Client.Abstractions;
+using Reception.Handlers.Abstractions;
 using Reception.Handlers.Client.Queries;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Reception.Handlers.Client.Handlers
+namespace Reception.Handlers.Client
 {
     /// <summary>
     /// Обработчик запроса на получение модели клиента по его идентификатору.

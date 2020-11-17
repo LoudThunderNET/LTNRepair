@@ -5,10 +5,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Order\Commands\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\..\CQSR.Abstraction\CQSR.Abstraction.csproj" />
     <ProjectReference Include="..\Reception.Api.Contracts\Reception.Contracts.csproj" />
   </ItemGroup>

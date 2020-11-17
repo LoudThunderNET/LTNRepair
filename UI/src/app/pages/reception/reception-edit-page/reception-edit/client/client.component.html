@@ -67,7 +67,7 @@
             [style]="{width: '100vw'}"
             contentStyleClass="layout-content content-section"
             styleClass="p-fluid"
-            (onShow)="dialog.maximize()"
+            (onShow)="onChooseClientDlgShowing(dialog)"
             (onHide)="onChooseClientDlgHiding($event)" #dialog>
     <div class="card p-grid">
         <label for="clientFilter" class="control-title p-col-12 p-xl-1 p-mb-2 p-md-2 p-mb-md-0">Фильтр</label>
@@ -76,7 +76,8 @@
         </div>
     </div>
     <div class="card p-grid">
-        <p-table  [value]="clientService.getClientsByFilter(clientFilter.valueChanges | async) | async"
+        <p-table 
+            [value]="Clients"
             [rowHover]="true"
             [selectionMode]="'single'"
             [(selection)]="selectedClient"

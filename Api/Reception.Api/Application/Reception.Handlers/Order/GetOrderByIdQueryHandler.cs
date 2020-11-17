@@ -5,7 +5,7 @@ using Reception.Handlers.Order.Queries;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Reception.Handlers.Order.Handlers
+namespace Reception.Handlers.Order
 {
     /// <summary>
     /// Обработчик запроса на получение элемента реестра заказов по его идентификатору.

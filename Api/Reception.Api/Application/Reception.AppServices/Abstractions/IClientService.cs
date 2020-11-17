@@ -1,4 +1,7 @@
-﻿using System.Threading;
+﻿using Reception.Contracts.Requests;
+using Reception.Domain.Entities;
+using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Reception.AppServices.Abstractions
@@ -14,6 +17,14 @@ namespace Reception.AppServices.Abstractions
         /// <param name="id">Идентификатор клиента.</param>
         /// <param name="cancellation">Отмена задачи.</param>
         /// <returns>Задача, представляющая асинхронную операцию получения доменной модели клиента по его идентификатору.</returns>
-        Task<Domain.Entities.Client> GetOrDefaultAsync(int id, CancellationToken cancellation);
+        Task<Client> GetOrDefaultAsync(int id, CancellationToken cancellation);
+
+        /// <summary>
+        /// Возвращает коллекцию доменных моделей клиентов соответствующих запросу.
+        /// </summary>
+        /// <param name="request">Запрос на получение клиентов.</param>
+        /// <param name="cancellation">Отмена задачи.</param>
+        /// <returns>Задача, представляющая асинхронную операцию получения коллекцию доменных моделей клиентов соответствующих запросу.</returns>
+        Task<IReadOnlyCollection<Client>> GetFilteredAsync(ClientRequest request, CancellationToken cancellation);
     }
 }
