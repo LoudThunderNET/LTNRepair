@@ -27,7 +27,6 @@ namespace Reception.Api
             services.AddSwaggerGen();
             services.AddMediatR(typeof(GetOrderByIdQuery))
                     .AddInfrastructure(Configuration)
-                    .AddAppServices(Configuration)
                     .AddDomainServices(Configuration);
         }
 

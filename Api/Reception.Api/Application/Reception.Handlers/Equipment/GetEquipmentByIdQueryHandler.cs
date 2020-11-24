@@ -1,4 +1,6 @@
-﻿using CQSR.Abstraction;
+﻿using Common.Lib;
+using Common.Lib.Mapping;
+using CQSR.Abstraction;
 using Reception.Contracts.Reception;
 using Reception.Handlers.Abstractions;
 using Reception.Handlers.Equipment.Queries;
@@ -12,21 +14,27 @@ namespace Reception.Handlers.Equipment
     /// </summary>
     public sealed class GetEquipmentByIdQueryHandler : IQueryHandler<GetEquipmentByIdQuery, EquipmentDto>
     {
-        private readonly IEquipmentAppService _equipmentAppService;
+        private readonly IEquipmentService _equipmentService;
+        private readonly ITypeMapper _mapper;
 
         /// <summary>
         /// Инициализирует экземпляр <see cref="GetEquipmentByIdQueryHandler"/>.
         /// </summary>
-        /// <param name="EquipmentAppService">Сервис приложения для работы с оборудованием.</param>
-        public GetEquipmentByIdQueryHandler(IEquipmentAppService EquipmentAppService)
+        /// <param name="equipmentService">Доменный сервис оборудования.</param>
+        /// <param name="mapper">Средство маппинга.</param>
+        public GetEquipmentByIdQueryHandler(IEquipmentService equipmentService, ITypeMapper mapper)
         {
-            _equipmentAppService = EquipmentAppService;
+            _equipmentService = equipmentService;
+            _mapper = mapper;
         }
 
         /// <inheritdoc/>
-        public Task<EquipmentDto> Handle(GetEquipmentByIdQuery request, CancellationToken cancellation)
+        public async Task<EquipmentDto> Handle(GetEquipmentByIdQuery request, CancellationToken cancellation)
         {
-            return _equipmentAppService.GetAsync(request.Id, cancellation);
+            var equipment = await _equipmentService.GetOrDefaultAsync(request.Id, cancellation)
+                ?? throw new EntityNotFoundException($"Оборудование с идентификатором {request.Id} не найдено.");
+
+            return _mapper.Map<EquipmentDto>(equipment);
         }
     }
 }

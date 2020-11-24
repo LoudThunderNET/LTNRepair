@@ -1,6 +1,6 @@
 <div class="layout-content content-section">
-    <div class="card">
-        <app-reception-edit [order]="order" (orderChanged)="onOrderChange(order)"></app-reception-edit>
+    <div class="card" >
+        <app-reception-edit [order]="order$ | async" (orderChanged)="onOrderChange($event)"></app-reception-edit>
     </div>
 
     <div class="p-md-offset-1 p-fluid p-formgrid p-grid p-ml-1 p-mr-1 card p-ai-center vertical-container">

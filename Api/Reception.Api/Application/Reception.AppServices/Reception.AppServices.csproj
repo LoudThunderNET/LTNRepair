@@ -10,4 +10,8 @@
     <ProjectReference Include="..\Reception.Handlers\Reception.Handlers.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Abstractions\" />
+  </ItemGroup>
+
 </Project>

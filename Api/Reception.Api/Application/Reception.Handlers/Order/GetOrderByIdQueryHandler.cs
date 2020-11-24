@@ -1,4 +1,6 @@
-﻿using CQSR.Abstraction;
+﻿using Common.Lib;
+using Common.Lib.Mapping;
+using CQSR.Abstraction;
 using Reception.Contracts.Reception;
 using Reception.Handlers.Abstractions;
 using Reception.Handlers.Order.Queries;
@@ -12,17 +14,27 @@ namespace Reception.Handlers.Order
     /// </summary>
     public sealed class GetOrderByIdQueryHandler : IQueryHandler<GetOrderByIdQuery, OrderRegistryItem>
     {
-        private readonly IOrderAppService _orderAppService;
+        private readonly IOrderService _orderService;
+        private readonly ITypeMapper _mapper;
 
-        public GetOrderByIdQueryHandler(IOrderAppService orderAppService)
+        /// <summary>
+        /// Инициализирует экземпляр <see cref="GetOrderByIdQueryHandler"/>.
+        /// </summary>
+        /// <param name="orderService">Доменный сервис заказов.</param>
+        /// <param name="mapper">Средство маппинга.</param>
+        public GetOrderByIdQueryHandler(IOrderService orderService, ITypeMapper mapper)
         {
-            _orderAppService = orderAppService;
+            _orderService = orderService;
+            _mapper = mapper;
         }
 
         /// <inheritdoc/>
-        public Task<OrderRegistryItem> Handle(GetOrderByIdQuery request, CancellationToken cancellationToken)
+        public async Task<OrderRegistryItem> Handle(GetOrderByIdQuery request, CancellationToken cancellation)
         {
-            return _orderAppService.GetOrderRegistryItemByIdAsync(request.OrderId, cancellationToken);
+            var order = await _orderService.GetOrderByIdAsync(request.OrderId, cancellation)
+                ?? throw new EntityNotFoundException($"Заказ с идентификатором {request.OrderId} не найден");
+
+            return _mapper.Map<OrderRegistryItem>(order);
         }
     }
 }

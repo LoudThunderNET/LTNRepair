@@ -4,18 +4,23 @@ using Microsoft.Extensions.Configuration;
 using DataAccess.EntityFramework;
 using Reception.Handlers.Abstractions;
 using Reception.Domain.Services;
-using AppServices.Abstractions;
 using Common.Lib.Mapping;
 using AutoMapper;
 using Reception.Infrastructure;
-using Reception.AppServices.Abstractions;
-using Reception.AppServices;
 
 namespace ComponentRegistrar
 {
+    /// <summary>
+    /// Методы расширения для регистрации компонентов.
+    /// </summary>
     public static class DependencyExtensions
     {
-
+        /// <summary>
+        /// Регистрирует компоненты инфраструктуры.
+        /// </summary>
+        /// <param name="services">Коллекция сервисов.</param>
+        /// <param name="configuration">Конфигурация.</param>
+        /// <returns>Коллекция сервисов.</returns>
         public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
         { 
             services.AddEntityFramework<ReceptionDbContext>(configuration.GetConnectionString("ReceptionDatabase"));
@@ -27,17 +32,13 @@ namespace ComponentRegistrar
 
             return services;
         }
-        
-        public static IServiceCollection AddAppServices(this IServiceCollection services, IConfiguration configuration)
-        {
-            services.AddTransient<IOrderAppService, ReceptionAppService>();
-            services.AddTransient<IOrderRegistryService, ReceptionAppService>();
-            services.AddTransient<IClientAppService, ClientAppService>();
-            services.AddTransient<IEquipmentAppService, EquipmentAppService>();
 
-            return services;
-        }
-
+        /// <summary>
+        /// Регистрирует доменные сервисы.
+        /// </summary>
+        /// <param name="services">Коллекция сервисов.</param>
+        /// <param name="configuration">Конфигурация.</param>
+        /// <returns>Коллекция сервисов.</returns>
         public static IServiceCollection AddDomainServices(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddTransient<IOrderService, OrderService>();

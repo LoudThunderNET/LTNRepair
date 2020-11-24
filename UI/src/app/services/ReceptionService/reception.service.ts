@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
 
 import { ReceptionRegistryRequest } from "./reception-registry-request";
 import { Order } from '../../domain/order/order';
-import { environment } from 'src/environments/environment';
+import { urls } from 'src/main';
 
 @Injectable()
 export class ReceptionService {
@@ -14,10 +14,10 @@ export class ReceptionService {
   constructor(private http: HttpClient) { }
 
   public getByFilter(request: ReceptionRegistryRequest) : Promise<PagedResult<OrderRegistryItem>>{
-    return this.http.post<PagedResult<OrderRegistryItem>>(environment.apiBaseUrl+'OrderRegistry', request).toPromise();
+    return this.http.post<PagedResult<OrderRegistryItem>>(urls.OrderRegistryApiUrl, request).toPromise();
   }
 
   get(id: number): Observable<Order>{
-    return this.http.get<Order>(environment.apiBaseUrl+'Order/'+id);
+    return this.http.get<Order>(urls.OrderApiUrl+id);
   }
 }

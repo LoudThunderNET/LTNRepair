@@ -1,5 +1,5 @@
 import {Client} from '../client';
-import {EquipmentBase} from '../equipment-base';
+import {Equipment} from '../equipment';
 import { PartOrderItem } from "../part-order-item";
 import { EnumType } from '../enums/enum-type';
 
@@ -14,7 +14,7 @@ export class OrderRegistryItem {
     /** Статус ремонта */
     status:EnumType;
     /** Оборудование */
-    equipment:EquipmentBase;
+    equipment:Equipment;
     /** Описание неисправности */
     defectDescription:string;
     /** Описание внешнего вида */

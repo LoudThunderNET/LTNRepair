@@ -1,4 +1,5 @@
-﻿using CQSR.Abstraction;
+﻿using Common.Lib.Mapping;
+using CQSR.Abstraction;
 using Reception.Contracts.Reception;
 using Reception.Handlers.Abstractions;
 using Reception.Handlers.Equipment.Queries;
@@ -13,21 +14,26 @@ namespace Reception.Handlers.Equipment
     /// </summary>
     public sealed class GetEquipmentByRequestQueryHandler : IQueryHandler<GetEquipmentByRequestQuery, IReadOnlyCollection<EquipmentDto>>
     {
-        private readonly IEquipmentAppService _equipmentAppService;
+        private readonly IEquipmentService _equipmentService;
+        private readonly ITypeMapper _mapper;
 
         /// <summary>
         /// Инициализирует экземпляр <see cref="GetEquipmentByRequestQueryHandler"/>.
         /// </summary>
-        /// <param name="equipmentAppService">Сервис приложения для работы с оборудованием.</param>
-        public GetEquipmentByRequestQueryHandler(IEquipmentAppService equipmentAppService)
+        /// <param name="equipmentService">Доменный сервис оборудования.</param>
+        /// <param name="mapper">Средство маппинга.</param>
+        public GetEquipmentByRequestQueryHandler(IEquipmentService equipmentService, ITypeMapper mapper)
         {
-            _equipmentAppService = equipmentAppService;
+            _equipmentService = equipmentService;
+            _mapper = mapper;
         }
 
         /// <inheritdoc/>
-        public Task<IReadOnlyCollection<EquipmentDto>> Handle(GetEquipmentByRequestQuery query, CancellationToken cancellation)
+        public async Task<IReadOnlyCollection<EquipmentDto>> Handle(GetEquipmentByRequestQuery query, CancellationToken cancellation)
         {
-            return _equipmentAppService.GetByRequestAsync(query.Request, cancellation);
+            var equipments = await _equipmentService.GetByRequestAsync(query.Request, cancellation);
+
+            return _mapper.MapAsReadOnlyCollection<Domain.Entities.Equipment, EquipmentDto>(equipments);
         }
     }
 }

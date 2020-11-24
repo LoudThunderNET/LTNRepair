@@ -1,5 +1,5 @@
 ﻿using Common.Lib.Extensions;
-using Reception.AppServices.Abstractions;
+using Reception.Handlers.Abstractions;
 using Reception.Contracts.Requests;
 using Reception.Domain.Entities;
 using Reception.Domain.Services.Abstractions;

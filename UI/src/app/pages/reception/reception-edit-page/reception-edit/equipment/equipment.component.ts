@@ -3,8 +3,9 @@ import { FormControl } from '@angular/forms';
 import { Controls, NgxSubFormComponent, subformComponentProviders } from 'ngx-sub-form';
 import { TreeNode } from 'primeng/api';
 import { Dialog } from 'primeng/dialog';
-import { Equipment } from 'src/app/domain/order/equipment';
+import { Equipment } from 'src/app/domain/equipment';
 import { EquipmentService } from 'src/app/services/EquipmentService/equipment.service';
+import {tap} from 'rxjs/operators';
 
 @Component({
   selector: 'app-equipment',
@@ -40,18 +41,22 @@ export class EquipmentComponent extends NgxSubFormComponent<Equipment>{
 
   onChooseEquipmentShowing(event, dialog: Dialog){
     dialog.maximize();
-    this.equipmentService.getByFilter({ node:true }).subscribe(response=>{
-      this.treeNodes = [{
-        label:'Все',
-        key: 'all',
-        data: {id:null},
-        expandedIcon: "pi pi-folder-open",
-        collapsedIcon: "pi pi-folder",
-        expanded:true,
-        children:[]
-      }];
-      this.buildTree(this.treeNodes, this.treeNodes[0], response, null);
-    });
+    const sub = this.equipmentService.getByFilter({ node:true })
+    .pipe(
+      tap(response =>{
+          this.treeNodes = [{
+            label:'Все',
+            key: 'all',
+            data: {id:null},
+            expandedIcon: "pi pi-folder-open",
+            collapsedIcon: "pi pi-folder",
+            expanded:true,
+            children:[]
+          }];
+          this.buildTree(this.treeNodes, this.treeNodes[0], response, null);
+        })
+      )
+    .subscribe(()=>sub.unsubscribe());
   }
 
   onSaveButtonClick(event){

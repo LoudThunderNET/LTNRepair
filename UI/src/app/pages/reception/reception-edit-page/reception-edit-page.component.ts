@@ -4,6 +4,8 @@ import { ActivatedRoute } from '@angular/router';
 import { Order } from "../../../domain/order/order";
 import { ConfirmationService } from 'primeng/api';
 import { ReceptionService } from 'src/app/services/ReceptionService/reception.service';
+import { Observable } from 'rxjs';
+import { tap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-reception-edit-page',
@@ -14,7 +16,7 @@ import { ReceptionService } from 'src/app/services/ReceptionService/reception.se
 export class ReceptionEditPageComponent  implements OnInit {
 
   isNewOrder:boolean = false;
-  order: Order;
+  order$: Observable<Order>;
   isModified:boolean = false;
   showCloseFormConfirmation:boolean = false;
 
@@ -30,10 +32,10 @@ export class ReceptionEditPageComponent  implements OnInit {
     if(orderId){
       this.title.setTitle(`Редактирование заказа номер ${orderId}`);
 
-      this.receptionService.get(orderId).subscribe(r => {
-        this.order = r;
-        this.isNewOrder = false;
-      });
+      this.order$ = this.receptionService.get(orderId)
+      .pipe(
+        tap({ complete: ()=> this.isModified = false})
+        );
 
     }
     else{

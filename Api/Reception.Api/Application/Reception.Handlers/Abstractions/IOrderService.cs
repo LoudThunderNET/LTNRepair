@@ -1,10 +1,10 @@
 ﻿using Reception.Contracts.Requests;
-using Reception.Domain.Entities;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
+using OrderEntity = Reception.Domain.Entities.Order;
 
-namespace AppServices.Abstractions
+namespace Reception.Handlers.Abstractions
 {
     /// <summary>
     /// Доменный сервис заказов.
@@ -17,7 +17,7 @@ namespace AppServices.Abstractions
         /// <param name="orderId">Идентификатор заказа.</param>
         /// <param name="cancellation">Отмена задачи.</param>
         /// <returns>Заказ.</returns>
-        Task<Order> GetOrderByIdAsync(int orderId, CancellationToken cancellation);
+        Task<OrderEntity> GetOrderByIdAsync(int orderId, CancellationToken cancellation);
 
         /// <summary>
         /// Возвращает заказы согласно запросу.
@@ -25,7 +25,7 @@ namespace AppServices.Abstractions
         /// <param name="cancellation">Отмена задачи.</param>
         /// <param name="request">Запрос.</param>
         /// <returns>Задача, представляющая асинхронную операцию получения заказов по запросу.</returns>
-        Task<IReadOnlyCollection<Order>> GetOrdersByRequestAsync(OrderRegistryRequest request, CancellationToken cancellation);
+        Task<IReadOnlyCollection<OrderEntity>> GetOrdersByRequestAsync(OrderRegistryRequest request, CancellationToken cancellation);
 
         /// <summary>
         /// Возвращает количество заказов согласно запросу.

@@ -1,12 +1,9 @@
-﻿using Common.Lib.Monads;
-using Reception.Contracts.Reception;
-using Reception.Contracts.Requests;
-using Reception.Domain.Entities;
+﻿using Reception.Contracts.Requests;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Reception.AppServices.Abstractions
+namespace Reception.Handlers.Abstractions
 {
     /// <summary>
     /// Доменный сервис оборудования.
@@ -19,14 +16,14 @@ namespace Reception.AppServices.Abstractions
         /// <param name="id">Идентификатор оборудования.</param>
         /// <param name="cancellation">Отмена задачи.</param>
         /// <returns>Задача, представляющая асинхронную операцию получения доменной модели обрудования по его идентификатору.</returns>
-        Task<Equipment> GetOrDefaultAsync(int id, CancellationToken cancellation);
+        Task<Domain.Entities.Equipment> GetOrDefaultAsync(int id, CancellationToken cancellation);
 
         /// <summary>
-        /// Возвращает доменную модель обрудования по его идентификатору.
+        /// Возвращает коллекцию обрудования согласно запросу.
         /// </summary>
-        /// <param name="id">Идентификатор оборудования.</param>
+        /// <param name="request">Запрос.</param>
         /// <param name="cancellation">Отмена задачи.</param>
-        /// <returns>Задача, представляющая асинхронную операцию получения доменной модели обрудования по его идентификатору.</returns>
-        Task<IReadOnlyCollection<Equipment>> GetByRequestAsync(EquipmentRequest request, CancellationToken cancellation);
+        /// <returns>Задача, представляющая асинхронную операцию получения коллекцию обрудования согласно запросу.</returns>
+        Task<IReadOnlyCollection<Domain.Entities.Equipment>> GetByRequestAsync(EquipmentRequest request, CancellationToken cancellation);
     }
 }

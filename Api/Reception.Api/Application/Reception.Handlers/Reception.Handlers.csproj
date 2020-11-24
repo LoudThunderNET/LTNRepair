@@ -6,7 +6,9 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\CQSR.Abstraction\CQSR.Abstraction.csproj" />
+    <ProjectReference Include="..\..\Shared\Common.Lib\Common.Lib.csproj" />
     <ProjectReference Include="..\Reception.Api.Contracts\Reception.Contracts.csproj" />
+    <ProjectReference Include="..\Reception.Domain\Reception.Domain.csproj" />
   </ItemGroup>
 
 </Project>
